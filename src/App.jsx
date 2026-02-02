@@ -7,7 +7,6 @@ export default function App() {
         w-full
         bg-[url('/par3.jpeg')]
         bg-contain
-        sm:bg-cover
         bg-no-repeat
         bg-center
       "
