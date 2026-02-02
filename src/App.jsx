@@ -6,7 +6,7 @@ export default function App() {
         h-screen
         w-full
         bg-[url('/par3.jpeg')]
-        bg-contain
+        bg-cover
         bg-no-repeat
         bg-center
       "
