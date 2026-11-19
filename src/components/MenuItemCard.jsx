@@ -10,14 +10,14 @@ export default function MenuItemCard({ item }) {
     <article className="group py-4 sm:py-5 border-b border-slate-200/80 last:border-b-0 px-2.5 sm:px-3.5 -mx-2.5 sm:-mx-3.5 rounded-2xl hover:bg-slate-50/80 active:bg-blue-50/40 transition-all duration-200 ease-out cursor-default">
       {/* Title & Price Line */}
       <div className="flex items-baseline justify-between gap-4 mb-1">
-        <h3 className="font-extrabold text-slate-950 group-hover:text-blue-900 text-base sm:text-lg leading-snug tracking-tight transition-colors duration-200">
+        <h3 className="font-extrabold text-slate-950 group-hover:text-blue-900 text-[17.5px] sm:text-xl leading-snug tracking-tight transition-colors duration-200">
           {item.name}
         </h3>
 
         {/* Space for the Price */}
         <div className="shrink-0 text-right min-w-[70px] sm:min-w-[85px]">
           {priceDisplay ? (
-            <span className="inline-block font-sans font-extrabold text-lg sm:text-xl text-blue-700 tracking-tight whitespace-nowrap group-hover:scale-[1.03] transition-transform duration-200 origin-right">
+            <span className="inline-block font-sans font-extrabold text-[17.5px] sm:text-xl text-blue-700 tracking-tight whitespace-nowrap group-hover:scale-[1.03] transition-transform duration-200 origin-right">
               {priceDisplay}
             </span>
           ) : (
