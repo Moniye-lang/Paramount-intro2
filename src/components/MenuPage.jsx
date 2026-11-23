@@ -319,7 +319,7 @@ export default function MenuPage() {
               <img
                 src="/logo.jpg"
                 alt="Paramount Place"
-                className="w-10 h-10 rounded-lg object-contain border border-[#DFB76C]/40"
+                className="w-14 h-14 rounded-xl object-contain border border-[#DFB76C]/40 shadow-md"
               />
               <span className="font-serif font-black text-sm tracking-widest text-[#DFB76C] uppercase">
                 Paramount Place

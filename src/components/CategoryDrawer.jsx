@@ -33,7 +33,7 @@ export default function CategoryDrawer({ isOpen, onClose, onSelectCategory }) {
             <img
               src="/logo.jpg"
               alt="Paramount Place"
-              className="w-9 h-9 rounded-lg object-contain border border-[#DFB76C]/40"
+              className="w-12 h-12 rounded-xl object-contain border border-[#DFB76C]/40 shadow-md"
             />
             <div>
               <h2 className="font-serif font-black tracking-widest text-sm text-[#DFB76C] uppercase">
