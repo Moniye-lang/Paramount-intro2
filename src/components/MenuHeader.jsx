@@ -12,7 +12,8 @@ export default function MenuHeader({ onOpenDrawer, onScrollToSearch }) {
             alt="Paramount Place Logo"
             className="h-14 sm:h-16 md:h-20 w-auto object-contain rounded-xl border border-[#DFB76C]/40 shadow-lg shadow-black"
           />
-          <div>
+          {/* Wordings (hidden on mobile, shown on tablet/desktop) */}
+          <div className="hidden sm:block">
             <h1 className="font-serif font-black tracking-widest text-[#DFB76C] text-base sm:text-lg md:text-xl uppercase leading-tight">
               Paramount Place
             </h1>
