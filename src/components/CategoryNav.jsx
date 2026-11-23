@@ -33,8 +33,8 @@ export default function CategoryNav({ activeCategory, onSelectCategory }) {
               onClick={() => onSelectCategory(cat.id)}
               className={`shrink-0 py-2 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-tight transition-all duration-200 cursor-pointer active:scale-95 ${
                 isActive
-                  ? "bg-blue-700 text-white shadow-md shadow-blue-700/25 scale-[1.02]"
-                  : "bg-slate-100/90 text-slate-800 hover:bg-slate-200 hover:text-blue-800 border border-slate-200/80 hover:scale-[1.01]"
+                  ? "bg-gradient-to-r from-[#DFB76C] to-[#C5A059] text-black shadow-md shadow-[#DFB76C]/20 scale-[1.02] font-extrabold"
+                  : "bg-[#12141A] text-slate-300 hover:text-[#DFB76C] hover:bg-[#181B24] border border-[#DFB76C]/20 hover:border-[#DFB76C]/50"
               }`}
             >
               <span>{cat.name}</span>

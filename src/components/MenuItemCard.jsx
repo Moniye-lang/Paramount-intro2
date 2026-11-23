@@ -1,51 +1,93 @@
 import React from "react";
 
-export default function MenuItemCard({ item }) {
-  // Format price without weird font-mono spacing
+export default function MenuItemCard({ item, isGrid = false }) {
+  // Format price
   const priceDisplay = item.priceRange
     ? item.priceRange
-    : (typeof item.price === "number" && item.price > 0 ? `₦${item.price.toLocaleString()}` : null);
+    : typeof item.price === "number" && item.price > 0
+    ? `₦${item.price.toLocaleString()}`
+    : null;
 
   return (
-    <article className="group py-4 sm:py-5 border-b border-slate-200/80 last:border-b-0 px-2.5 sm:px-3.5 -mx-2.5 sm:-mx-3.5 rounded-2xl hover:bg-slate-50/80 active:bg-blue-50/40 transition-all duration-200 ease-out cursor-default">
-      {/* Title & Price Line */}
-      <div className="flex items-baseline justify-between gap-4 mb-1">
-        <h3 className="font-extrabold text-slate-950 group-hover:text-blue-900 text-[17.5px] sm:text-xl leading-snug tracking-tight transition-colors duration-200">
-          {item.name}
-        </h3>
+    <article
+      className={`group relative bg-[#12141A] hover:bg-[#161922] border border-[#DFB76C]/25 hover:border-[#DFB76C]/70 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between transition-all duration-200 shadow-lg shadow-black/40 hover:shadow-[#DFB76C]/10 hover:-translate-y-1 ${
+        isGrid
+          ? "w-full"
+          : "shrink-0 w-[230px] sm:w-[260px] snap-start"
+      }`}
+    >
+      {/* Top Section */}
+      <div>
+        {/* .innerbox visual badge (matching The Seed card layout) */}
+        <div className="innerbox relative w-full h-32 sm:h-36 rounded-xl overflow-hidden bg-gradient-to-br from-[#0c0e14] via-[#0B1B3D] to-[#132247] border border-[#DFB76C]/20 flex flex-col items-center justify-center p-3 text-center select-none group-hover:border-[#DFB76C]/40 transition-colors">
+          {/* Subtle decorative gold corner accents */}
+          <div className="absolute top-1.5 left-1.5 w-2 h-2 border-t border-l border-[#DFB76C]/40"></div>
+          <div className="absolute top-1.5 right-1.5 w-2 h-2 border-t border-r border-[#DFB76C]/40"></div>
+          <div className="absolute bottom-1.5 left-1.5 w-2 h-2 border-b border-l border-[#DFB76C]/40"></div>
+          <div className="absolute bottom-1.5 right-1.5 w-2 h-2 border-b border-r border-[#DFB76C]/40"></div>
 
-        {/* Space for the Price */}
-        <div className="shrink-0 text-right min-w-[70px] sm:min-w-[85px]">
-          {priceDisplay ? (
-            <span className="inline-block font-sans font-extrabold text-[17.5px] sm:text-xl text-blue-700 tracking-tight whitespace-nowrap group-hover:scale-[1.03] transition-transform duration-200 origin-right">
-              {priceDisplay}
-            </span>
-          ) : (
-            <span className="font-sans font-bold text-slate-300 text-base sm:text-lg tracking-wider select-none">
-              —
+          {/* Gold Paramount Crest Monogram */}
+          <div className="w-12 h-12 rounded-full bg-[#DFB76C]/10 border border-[#DFB76C]/40 flex items-center justify-center shadow-inner mb-1.5 group-hover:scale-105 transition-transform duration-200">
+            <svg
+              className="w-7 h-7 text-[#DFB76C]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              {/* Architectural building + Crown/P silhouette */}
+              <path
+                d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-8h6v8M10 7h4"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <span className="font-serif text-[10px] tracking-widest text-[#DFB76C] uppercase font-bold">
+            Paramount
+          </span>
+          <span className="text-[9px] tracking-wider text-slate-400 uppercase font-medium">
+            Lounge &bull; Dining
+          </span>
+
+          {/* Time Badge if breakfast/grill */}
+          {item.time && (
+            <span className="absolute bottom-2 px-2 py-0.5 rounded-full bg-black/70 border border-[#DFB76C]/30 text-[9px] font-semibold text-[#F5D77F] tracking-wide">
+              {item.time}
             </span>
           )}
         </div>
+
+        {/* Dish / Drink Name (User asked to make dish names a little bigger) */}
+        <h3 className="font-serif font-extrabold text-white group-hover:text-[#F5D77F] text-base sm:text-[17px] leading-snug tracking-wide mt-3 line-clamp-2 transition-colors">
+          {item.name}
+        </h3>
+
+        {/* High-Contrast Description */}
+        {item.description && (
+          <p className="text-xs sm:text-[13px] text-slate-300 font-medium leading-relaxed mt-1.5 line-clamp-3">
+            {item.description}
+          </p>
+        )}
       </div>
 
-      {/* High-Contrast, Bold & Readable Description */}
-      {item.description && (
-        <p className="text-sm sm:text-[15px] text-slate-800 font-semibold leading-relaxed mt-1.5 transition-colors duration-200">
-          {item.description}
-        </p>
-      )}
-
-      {/* Service Availability Badge */}
-      {item.time && (
-        <div className="mt-2 flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">
-            Hours:
+      {/* Price Footer (Bold Gold, with designated placeholder if unpriced) */}
+      <div className="mt-4 pt-3 border-t border-[#DFB76C]/15 flex items-baseline justify-between">
+        <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400">
+          Price
+        </span>
+        {priceDisplay ? (
+          <span className="font-sans font-extrabold text-base sm:text-lg text-[#DFB76C] tracking-tight group-hover:scale-105 transition-transform origin-right">
+            {priceDisplay}
           </span>
-          <span className="text-xs font-semibold text-blue-900 bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200/80">
-            {item.time}
+        ) : (
+          <span className="font-bold text-slate-500 text-sm tracking-widest select-none">
+            —
           </span>
-        </div>
-      )}
+        )}
+      </div>
     </article>
   );
 }
