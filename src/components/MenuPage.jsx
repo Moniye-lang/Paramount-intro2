@@ -12,6 +12,45 @@ export default function MenuPage() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  // Custom image mappings saved via /admin
+  const [customImages, setCustomImages] = useState(() => {
+    try {
+      const saved = localStorage.getItem("paramount_menu_images");
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  // Listen for image updates from admin page (cross-tab and same-tab)
+  useEffect(() => {
+    const handleSync = () => {
+      try {
+        const saved = localStorage.getItem("paramount_menu_images");
+        if (saved) setCustomImages(JSON.parse(saved));
+      } catch {}
+    };
+    window.addEventListener("storage", handleSync);
+    window.addEventListener("paramount_images_updated", handleSync);
+    return () => {
+      window.removeEventListener("storage", handleSync);
+      window.removeEventListener("paramount_images_updated", handleSync);
+    };
+  }, []);
+
+  // Merge default menu items with any custom admin image overrides
+  const activeMenuItems = useMemo(() => {
+    if (!customImages || Object.keys(customImages).length === 0) {
+      return MENU_ITEMS;
+    }
+    return MENU_ITEMS.map((item) => {
+      if (customImages[item.id] !== undefined && customImages[item.id] !== "") {
+        return { ...item, image: customImages[item.id] };
+      }
+      return item;
+    });
+  }, [customImages]);
+
   const searchInputRef = useRef(null);
 
   // Monitor scroll for Back-to-Top button
@@ -29,7 +68,7 @@ export default function MenuPage() {
 
   // Filtered items when searching or filtering
   const filteredItems = useMemo(() => {
-    return MENU_ITEMS.filter((item) => {
+    return activeMenuItems.filter((item) => {
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matchName = item.name.toLowerCase().includes(q);
@@ -44,7 +83,7 @@ export default function MenuPage() {
 
       return true;
     });
-  }, [searchQuery, activeCategory]);
+  }, [activeMenuItems, searchQuery, activeCategory]);
 
   const isSearching = searchQuery.trim().length > 0;
 
@@ -240,7 +279,7 @@ export default function MenuPage() {
                 return null;
               }
 
-              const catItems = MENU_ITEMS.filter((i) => i.category === cat.id);
+              const catItems = activeMenuItems.filter((i) => i.category === cat.id);
               if (catItems.length === 0) return null;
 
               return (
